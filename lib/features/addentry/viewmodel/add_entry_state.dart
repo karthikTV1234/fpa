@@ -25,12 +25,18 @@ class AddEntryFailure extends AddEntryState {
   List<Object?> get props => [error];
 }
 
-// State when a category is selected
-class CategorySelectedState extends AddEntryState {
+// Unified state to handle both category and item selection
+class AddEntryFormState extends AddEntryState {
   final String selectedCategory;
+  final String selectedItem;
+  final List<String> items;
 
-  CategorySelectedState(this.selectedCategory);
+  AddEntryFormState({
+    required this.selectedCategory,
+    required this.selectedItem,
+    required this.items,
+  });
 
   @override
-  List<Object?> get props => [selectedCategory];
+  List<Object?> get props => [selectedCategory, selectedItem, items];
 }

@@ -1,14 +1,21 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpa/data/repositories/entry_repository.dart';
+import 'package:fpa/data/category_item_data.dart';
 import 'add_entry_event.dart';
 import 'add_entry_state.dart';
 
 class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
   final EntryRepository entryRepository;
 
+  String selectedCategory = '';
+  String selectedItem = '';
+  List<String> items = [];
+
   AddEntryBloc(this.entryRepository) : super(AddEntryInitial()) {
     on<SubmitEntry>(_onSubmitEntry);
     on<CategorySelected>(_onCategorySelected); // Handle category selection
+    on<ItemSelected>(_onItemSelected);
+
   }
 
   // Handle entry submission
@@ -28,8 +35,23 @@ class AddEntryBloc extends Bloc<AddEntryEvent, AddEntryState> {
     }
   }
 
-  // Handle category selection
   void _onCategorySelected(CategorySelected event, Emitter<AddEntryState> emit) {
-    emit(CategorySelectedState(event.category));  // Emit the category selected state
+    selectedCategory = event.category;
+    selectedItem = ''; // Reset item when category changes
+    items = categoryItems[event.category] ?? [];
+    emit(AddEntryFormState(
+      selectedCategory: selectedCategory,
+      selectedItem: selectedItem,
+      items: items,
+    ));
+  }
+
+  void _onItemSelected(ItemSelected event, Emitter<AddEntryState> emit) {
+    selectedItem = event.item;
+    emit(AddEntryFormState(
+      selectedCategory: selectedCategory,
+      selectedItem: selectedItem,
+      items: items,
+    ));
   }
 }

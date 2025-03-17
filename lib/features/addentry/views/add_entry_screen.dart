@@ -32,7 +32,7 @@ class AddEntryScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Entry added successfully!')),
               );
-              Navigator.pop(context);  // Go back after success
+              Navigator.pop(context); // Go back after success
             } else if (state is AddEntryFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
@@ -41,58 +41,79 @@ class AddEntryScreen extends StatelessWidget {
           },
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                DropdownField(
-                  items: categories,
-                  label: 'Select Category',
-                  onChanged: (value) {
-                    print('Selected Category: $value');
-                    // Dispatch the CategorySelected event when a category is selected
-                    context.read<AddEntryBloc>().add(CategorySelected(value));
-                  },
-                ),
+            child: BlocBuilder<AddEntryBloc, AddEntryState>(
+              builder: (context, state) {
+                String selectedCategory = '';
+                String selectedItem = '';
+                List<String> items = [];
 
-                // Item Dropdown (Depends on Category)
-                DropdownField(
-                  items: const ['Apple', 'Orange', 'Potato', 'Tomato'], // Add your item list here
-                  label: 'Select Item',
-                  onChanged: (value) {
-                    print('Selected Item: $value');
-                  },
-                ),
+                // Handle combined form state
+                if (state is AddEntryFormState) {
+                  selectedCategory = state.selectedCategory;
+                  selectedItem = state.selectedItem;
+                  items = state.items;
+                }
 
-                const SizedBox(height: 16),
-                const Text('Select Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                DatePickerField(controller: dateController),
-                const SizedBox(height: 16),
-
-                LocationField(controller: locationController),
-
-                PriceField(controller: priceController),
-
-
-                BlocBuilder<AddEntryBloc, AddEntryState>(
-                  builder: (context, state) {
-                    if (state is AddEntryLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return SubmitButton(
-                      onPressed: () {
-                        final entry = Entry(
-                          category: 'Vegetable', // Replace with actual value
-                          item: 'Apple', // Replace with actual value
-                          date: dateController.text, // Replace with actual value
-                          location: locationController.text,
-                          price: double.tryParse(priceController.text) ?? 0.0,
-                        );
-                        context.read<AddEntryBloc>().add(SubmitEntry(entry));
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Category Dropdown
+                    DropdownField(
+                      items: categories,
+                      label: 'Select Category',
+                      selectedValue: selectedCategory.isNotEmpty ? selectedCategory : null,
+                      onChanged: (value) {
+                        if (value != null) {
+                          context.read<AddEntryBloc>().add(CategorySelected(value));
+                        }
                       },
-                    );
-                  },
-                ),
-              ],
+                    ),
+                    const SizedBox(height: 16),
+
+                    // Item Dropdown (Updates based on category)
+                    DropdownField(
+                      items: items,
+                      label: 'Select Item',
+                      selectedValue: selectedItem.isNotEmpty ? selectedItem : null,
+                      onChanged: (value) {
+                        if (value != null) {
+                          context.read<AddEntryBloc>().add(ItemSelected(value));
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 16),
+
+                    const Text('Select Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
+                    DatePickerField(controller: dateController),
+                    const SizedBox(height: 16),
+
+                    LocationField(controller: locationController),
+                    PriceField(controller: priceController),
+                    const SizedBox(height: 16),
+
+                    BlocBuilder<AddEntryBloc, AddEntryState>(
+                      builder: (context, state) {
+                        if (state is AddEntryLoading) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        return SubmitButton(
+                          onPressed: () {
+                            final entry = Entry(
+                              category: selectedCategory.isNotEmpty ? selectedCategory : 'Unknown',
+                              item: selectedItem.isNotEmpty ? selectedItem : 'Unknown',
+                              date: dateController.text,
+                              location: locationController.text,
+                              price: double.tryParse(priceController.text) ?? 0.0,
+                            );
+                            context.read<AddEntryBloc>().add(SubmitEntry(entry));
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),

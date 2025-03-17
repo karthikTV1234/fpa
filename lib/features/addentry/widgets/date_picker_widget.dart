@@ -27,7 +27,6 @@ class DatePickerField extends StatelessWidget {
         child: TextFormField(
           controller: controller,
           decoration: const InputDecoration(
-            labelText: "Select Date",
             border: OutlineInputBorder(),
             suffixIcon: Icon(Icons.calendar_today),
           ),

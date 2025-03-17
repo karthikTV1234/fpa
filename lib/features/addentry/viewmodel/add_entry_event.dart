@@ -28,3 +28,13 @@ class CategorySelected extends AddEntryEvent {
   @override
   List<Object?> get props => [category];
 }
+
+// Event for selecting an item
+class ItemSelected extends AddEntryEvent {
+  final String item;
+
+  const ItemSelected(this.item);
+
+  @override
+  List<Object?> get props => [item];
+}
