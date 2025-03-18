@@ -17,3 +17,9 @@ final List<String> categories = [
   'Vegetable',
   'Fruit',
 ];
+
+final List<String> timeRanges = [
+  'Last 5 Years',
+  'Current Year',
+  'Last Year',
+];
