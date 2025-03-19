@@ -1,4 +1,4 @@
-import '../../features/analysis/model/AnalysisResult.dart';
+import '../models/AnalysisResult.dart';
 
 class AnalysisRepository {
   // Simulated network delay

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/AnalysisResult.dart';
+import '../../../data/models/AnalysisResult.dart';
 
 class AnalysisListItemWidget extends StatelessWidget {
   final AnalysisResult analysis;

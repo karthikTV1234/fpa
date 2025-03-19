@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import '../model/AnalysisResult.dart';
+import '../../../data/models/AnalysisResult.dart';
 
 /// Base class for all analysis-related states.
 abstract class AnalysisState extends Equatable {

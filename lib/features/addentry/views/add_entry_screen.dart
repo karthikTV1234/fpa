@@ -9,8 +9,8 @@ import 'package:fpa/features/addentry/viewmodel/add_entry_state.dart';
 import 'package:fpa/features/addentry/widgets/location_field.dart';
 import 'package:fpa/features/addentry/widgets/price_field.dart';
 import 'package:fpa/features/addentry/widgets/submit_button.dart';
-import 'package:fpa/widgets/dropdown/dropdown_widget.dart';
-import '../widgets/date_picker_widget.dart';
+import 'package:fpa/widgets/dropdown_widget.dart';
+import '../../../widgets/date_picker_widget.dart';
 
 class AddEntryScreen extends StatelessWidget {
   const AddEntryScreen({Key? key}) : super(key: key);
