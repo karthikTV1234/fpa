@@ -32,7 +32,7 @@ class AddEntryScreen extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Entry added successfully!')),
               );
-              Navigator.pop(context); // Go back after success
+              Navigator.pop(context, true); // Go back after success
             } else if (state is AddEntryFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),

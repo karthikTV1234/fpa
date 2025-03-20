@@ -7,6 +7,7 @@ class EntriesBloc extends Bloc<EntriesEvent, EntriesState> {
   final EntryRepository _entryRepository;
 
   EntriesBloc(this._entryRepository) : super(EntriesInitial()) {
+    print('EntriesBloc instance created: ${identityHashCode(this)}');
     on<LoadEntries>((event, emit) async {
       emit(EntriesLoading());
 

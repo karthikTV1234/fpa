@@ -7,15 +7,18 @@ import 'package:fpa/features/entries/viewmodels/entries_state.dart';
 import 'package:fpa/features/entries/widgets/list_item_widget.dart';
 import 'package:fpa/navigation/routes/app_routes.dart';
 
+import '../../../core/constants/app_icons.dart';
+
 class EntriesScreen extends StatelessWidget {
   const EntriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      // Inject EntryRepository into EntriesBloc
-      create: (context) => EntriesBloc(EntryRepository())..add(LoadEntries()),
-      child: Scaffold(
+    // Access the global EntriesBloc without creating a new instance
+    final entriesBloc = context.read<EntriesBloc>();
+    // Trigger loading of entries whenever the screen is built
+    entriesBloc.add(LoadEntries());
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Entries'),
         ),
@@ -43,12 +46,11 @@ class EntriesScreen extends StatelessWidget {
             // Navigate to AddEntry and refresh on return
             final result = await Navigator.pushNamed(context, AppRoutes.addEntry);
             if (result == true) {
-              context.read<EntriesBloc>().add(LoadEntries());
+              entriesBloc.add(LoadEntries());
             }
           },
-          child: const Icon(Icons.add),
+          child: const Icon(MyAppIcons.add),
         ),
-      ),
-    );
+      );
   }
 }

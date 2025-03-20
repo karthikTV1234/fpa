@@ -1,6 +1,7 @@
 // bottom_navigation.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../core/constants/app_icons.dart';
 import '../features/analysis/views/analysis_screen.dart';
 import '../features/settings/views/settings_screen.dart';
 import '../features/entries/views/entries_screen.dart';
@@ -13,11 +14,13 @@ import 'bottom_nav_state.dart';
 class BottomNavigation extends StatelessWidget {
   final List<Widget> screens = [HomeScreen(), EntriesScreen(), AnalysisScreen()];
 
+  //build() → Called only once when the widget is created.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => BottomNavBloc(),
       child: BlocBuilder<BottomNavBloc, BottomNavState>(
+       //builder() → Called every time the BLoC emits a new state.
         builder: (context, state) {
           final currentIndex = (state as BottomNavInitial).currentIndex;
           return Scaffold(
@@ -26,9 +29,9 @@ class BottomNavigation extends StatelessWidget {
               currentIndex: currentIndex,
               onTap: (index) => context.read<BottomNavBloc>().add(BottomNavItemSelected(index)),
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-                BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Entries'),
-                BottomNavigationBarItem(icon: Icon(Icons.analytics), label: 'Analysis')
+                BottomNavigationBarItem(icon: Icon(MyAppIcons.home), label: 'Home'),
+                BottomNavigationBarItem(icon: Icon(MyAppIcons.listEntries), label: 'Entries'),
+                BottomNavigationBarItem(icon: Icon(MyAppIcons.analytics), label: 'Analysis')
               ],
             ),
           );
