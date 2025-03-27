@@ -13,10 +13,13 @@ import 'package:fpa/widgets/dropdown_widget.dart';
 import '../../../widgets/date_picker_widget.dart';
 
 class AddEntryScreen extends StatelessWidget {
-  const AddEntryScreen({Key? key}) : super(key: key);
+   AddEntryScreen({Key? key}) : super(key: key);
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Form key
 
   @override
   Widget build(BuildContext context) {
+    // Controllers for text fields
     final TextEditingController locationController = TextEditingController();
     final TextEditingController priceController = TextEditingController();
     final TextEditingController dateController = TextEditingController();
@@ -41,6 +44,8 @@ class AddEntryScreen extends StatelessWidget {
           },
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
+            child: Form(
+               key: _formKey, // Assign form key
             child: BlocBuilder<AddEntryBloc, AddEntryState>(
               builder: (context, state) {
                 String selectedCategory = '';
@@ -88,8 +93,25 @@ class AddEntryScreen extends StatelessWidget {
                     DatePickerField(controller: dateController),
                     const SizedBox(height: 16),
 
-                    LocationField(controller: locationController),
-                    PriceField(controller: priceController),
+                    LocationField(
+                      controller: locationController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Location is required';
+                        }
+                        return null;
+                      },
+                    ),
+
+                    PriceField(
+                      controller: priceController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Price is required';
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(height: 16),
 
                     BlocBuilder<AddEntryBloc, AddEntryState>(
@@ -98,16 +120,11 @@ class AddEntryScreen extends StatelessWidget {
                           return const Center(child: CircularProgressIndicator());
                         }
                         return SubmitButton(
-                          onPressed: () {
-                            final entry = Entry(
-                              category: selectedCategory.isNotEmpty ? selectedCategory : 'Unknown',
-                              item: selectedItem.isNotEmpty ? selectedItem : 'Unknown',
-                              date: dateController.text,
-                              location: locationController.text,
-                              price: double.tryParse(priceController.text) ?? 0.0,
-                            );
-                            context.read<AddEntryBloc>().add(SubmitEntry(entry));
-                          },
+                            onPressed: () => _onSubmit(
+                                context, selectedCategory, selectedItem,
+                                dateController, locationController,
+                                priceController
+                            )
                         );
                       },
                     ),
@@ -115,9 +132,28 @@ class AddEntryScreen extends StatelessWidget {
                 );
               },
             ),
+            ),
           ),
         ),
       ),
     );
   }
+
+   void _onSubmit(BuildContext context, String selectedCategory, String selectedItem, TextEditingController dateController, TextEditingController locationController, TextEditingController priceController) {
+     if (_formKey.currentState!.validate()) {
+       final entry = Entry(
+         category: selectedCategory.isNotEmpty ? selectedCategory : 'Unknown',
+         item: selectedItem.isNotEmpty ? selectedItem : 'Unknown',
+         date: dateController.text,
+         location: locationController.text,
+         price: double.tryParse(priceController.text) ?? 0.0,
+       );
+       context.read<AddEntryBloc>().add(SubmitEntry(entry));
+     } else {
+       ScaffoldMessenger.of(context).showSnackBar(
+         const SnackBar(content: Text('Please fill all fields correctly')),
+       );
+     }
+   }
+
 }

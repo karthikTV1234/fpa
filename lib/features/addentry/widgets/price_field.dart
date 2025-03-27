@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class PriceField extends StatelessWidget {
   final TextEditingController controller;
+  final String? Function(String?)? validator; // Validator function
 
-  const PriceField({Key? key, required this.controller}) : super(key: key);
+  const PriceField({Key? key, required this.controller, this.validator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class PriceField extends StatelessWidget {
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
           ),
+          validator: validator, // Apply validator
         ),
         const SizedBox(height: 16),
       ],

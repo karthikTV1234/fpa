@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class LocationField extends StatelessWidget {
   final TextEditingController controller;
+  final String? Function(String?)? validator; // Validator function
 
-  const LocationField({Key? key, required this.controller}) : super(key: key);
+  const LocationField({Key? key, required this.controller, this.validator}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class LocationField extends StatelessWidget {
           decoration: const InputDecoration(
             border: OutlineInputBorder(),
           ),
+          validator: validator, // Apply validator
         ),
         const SizedBox(height: 16),
       ],
