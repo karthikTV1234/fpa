@@ -14,6 +14,7 @@ class EntriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("EntriesScreen build() called | hashCode: $hashCode");
     // Access the global EntriesBloc without creating a new instance
     final entriesBloc = context.read<EntriesBloc>();
     // Trigger loading of entries whenever the screen is built

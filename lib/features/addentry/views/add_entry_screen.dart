@@ -12,17 +12,38 @@ import 'package:fpa/features/addentry/widgets/submit_button.dart';
 import 'package:fpa/widgets/dropdown_widget.dart';
 import '../../../widgets/date_picker_widget.dart';
 
-class AddEntryScreen extends StatelessWidget {
-   AddEntryScreen({Key? key}) : super(key: key);
+class AddEntryScreen extends StatefulWidget {
+  const AddEntryScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AddEntryScreen> createState() => _AddEntryScreenState();
+}
+
+class _AddEntryScreenState extends State<AddEntryScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Form key
+
+  late TextEditingController locationController;
+  late TextEditingController priceController;
+  late TextEditingController dateController;
+
+  @override
+  void initState() {
+    super.initState();
+    locationController = TextEditingController();
+    priceController = TextEditingController();
+    dateController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    locationController.dispose();
+    priceController.dispose();
+    dateController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Controllers for text fields
-    final TextEditingController locationController = TextEditingController();
-    final TextEditingController priceController = TextEditingController();
-    final TextEditingController dateController = TextEditingController();
     final EntryRepository entryRepository = EntryRepository();
 
     return BlocProvider(
