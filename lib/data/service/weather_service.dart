@@ -1,18 +1,18 @@
 import 'package:dio/dio.dart';
+import '../../core/constants/ApiConstants.dart';
 import '../../core/network/api_client.dart';
 import '../models/rain_status_model.dart';
 
 class WeatherService {
   final Dio _dio = ApiClient().dio;
-  static const String _apiKey = 'ccaeb5d1f322c7dfebc89cf737561fc1';
 
   Future<RainStatusModel> getRainStatus(String cityName) async {
     try {
       final response = await _dio.get(
-        'forecast',
+        ApiConstants.forecast,
         queryParameters: {
           'q': cityName,
-          'appid': _apiKey,
+          'appid': ApiConstants.apiKey,
           'units': 'metric',
         },
       );
