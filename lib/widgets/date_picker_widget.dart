@@ -3,8 +3,9 @@ import 'package:intl/intl.dart';
 
 class DatePickerField extends StatelessWidget {
   final TextEditingController controller;
+  final String? Function(String?)? validator; // Validator function
 
-  const DatePickerField({Key? key, required this.controller}) : super(key: key);
+  const DatePickerField({Key? key, required this.controller, this.validator}) : super(key: key);
 
   Future<void> _pickDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -30,6 +31,7 @@ class DatePickerField extends StatelessWidget {
             border: OutlineInputBorder(),
             suffixIcon: Icon(Icons.calendar_today),
           ),
+          validator: validator, // Apply validator
           style: const TextStyle(fontSize: 16),
         ),
       ),

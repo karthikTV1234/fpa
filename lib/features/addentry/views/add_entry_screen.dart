@@ -111,7 +111,14 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
 
                     const Text('Select Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
-                    DatePickerField(controller: dateController),
+                    DatePickerField(controller: dateController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Date is required';
+                        }
+                        return null;
+                      },
+                    ),
                     const SizedBox(height: 16),
 
                     LocationField(
