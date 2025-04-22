@@ -2,7 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../core/constants/app_icons.dart';
-import '../features/analysis/views/analysis_screen.dart';
+//import '../features/analysis/views/analysis_screen_single_layout.dart';
+import '../features/analysis/views/multiplelayout/analysis_screen.dart';
 import '../features/settings/views/settings_screen.dart';
 import '../features/entries/views/entries_screen.dart';
 import '../features/home/views/home_screen.dart';
