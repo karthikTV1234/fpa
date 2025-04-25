@@ -9,7 +9,7 @@ import 'package:fpa/features/addentry/viewmodel/add_entry_state.dart';
 import 'package:fpa/features/addentry/widgets/location_field.dart';
 import 'package:fpa/features/addentry/widgets/price_field.dart';
 import 'package:fpa/features/addentry/widgets/submit_button.dart';
-import 'package:fpa/widgets/dropdown_widget.dart';
+import 'package:fpa/widgets/my_dropdown_widget.dart';
 import '../../../widgets/date_picker_widget.dart';
 
 class AddEntryScreen extends StatefulWidget {
@@ -84,7 +84,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Category Dropdown
-                    DropdownField(
+                    MyDropdownField(
                       items: categories,
                       label: 'Select Category',
                       selectedValue: selectedCategory.isNotEmpty ? selectedCategory : null,
@@ -97,7 +97,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                     const SizedBox(height: 16),
 
                     // Item Dropdown (Updates based on category)
-                    DropdownField(
+                    MyDropdownField(
                       items: items,
                       label: 'Select Item',
                       selectedValue: selectedItem.isNotEmpty ? selectedItem : null,

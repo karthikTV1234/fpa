@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fpa/data/category_item_data.dart';
-import 'package:fpa/widgets/dropdown_widget.dart';
+import 'package:fpa/widgets/my_dropdown_widget.dart';
 import 'package:fpa/features/analysis/views/analysis_list_widget.dart';
 
 class AnalysisScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Category Dropdown
-                DropdownField(
+                MyDropdownField(
                   items: categories,
                   label: 'Select Category',
                   selectedValue: selectedCategory,
@@ -39,7 +39,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                 const SizedBox(height: 16),
 
                 // Time Range Dropdown
-                DropdownField(
+                MyDropdownField(
                   items: timeRanges,
                   label: 'Select Time Range',
                   selectedValue: selectedTimeRange,

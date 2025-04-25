@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../data/category_item_data.dart';
-import '../../../../widgets/dropdown_widget.dart';
+import '../../../../widgets/my_dropdown_widget.dart';
 import '../analysis_list_widget.dart';
 
 class AnalysisPortraitLayout extends StatelessWidget {
@@ -28,14 +28,14 @@ class AnalysisPortraitLayout extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DropdownField(
+          MyDropdownField(
             items: categories,
             label: 'Select Category',
             selectedValue: selectedCategory,
             onChanged: onCategoryChanged,
           ),
           const SizedBox(height: 16),
-          DropdownField(
+          MyDropdownField(
             items: timeRanges,
             label: 'Select Time Range',
             selectedValue: selectedTimeRange,

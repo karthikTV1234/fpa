@@ -15,3 +15,4 @@ This project is a starting point for a Flutter application.
 7. SQflite db
 8. Orientation
 9. Dark Mode/Light Mode
+10. Localization
