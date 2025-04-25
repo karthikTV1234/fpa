@@ -15,6 +15,7 @@ class WeatherService {
           'appid': ApiConstants.apiKey,
           'units': 'metric',
         },
+        options: Options(extra: {'authRequired': false}),
       );
 
       if (response.statusCode == 200) {

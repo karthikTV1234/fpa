@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'app_colorscheme.dart';
+import '../color/app_colorscheme.dart';
 
 /// Central theme definitions using predefined color schemes.
 class AppTheme {

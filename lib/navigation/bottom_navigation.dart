@@ -13,7 +13,7 @@ import 'bottom_nav_state.dart';
 
 // Bottom Navigation Bar UI
 class BottomNavigation extends StatelessWidget {
-  final List<Widget> screens = [HomeScreen(), EntriesScreen(), AnalysisScreen()];
+  final List<Widget> screens = [HomeScreen(), EntriesScreen(), AnalysisScreen(), SettingsScreen()];
 
   //build() → Called only once when the widget is created.
   @override
@@ -27,12 +27,14 @@ class BottomNavigation extends StatelessWidget {
           return Scaffold(
             body: screens[currentIndex],
             bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,//for more than 3 items
               currentIndex: currentIndex,
               onTap: (index) => context.read<BottomNavBloc>().add(BottomNavItemSelected(index)),
               items: const [
                 BottomNavigationBarItem(icon: Icon(MyAppIcons.home), label: 'Home'),
                 BottomNavigationBarItem(icon: Icon(MyAppIcons.listEntries), label: 'Entries'),
-                BottomNavigationBarItem(icon: Icon(MyAppIcons.analytics), label: 'Analysis')
+                BottomNavigationBarItem(icon: Icon(MyAppIcons.analytics), label: 'Analysis'),
+                BottomNavigationBarItem(icon: Icon(MyAppIcons.settings), label: 'Settings')
               ],
             ),
           );
