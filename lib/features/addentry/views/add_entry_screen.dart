@@ -11,6 +11,7 @@ import 'package:fpa/features/addentry/widgets/price_field.dart';
 import 'package:fpa/features/addentry/widgets/submit_button.dart';
 import 'package:fpa/widgets/my_dropdown_widget.dart';
 import '../../../widgets/date_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddEntryScreen extends StatefulWidget {
   const AddEntryScreen({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                     // Category Dropdown
                     MyDropdownField(
                       items: categories,
-                      label: 'Select Category',
+                      label: AppLocalizations.of(context)!.addEntrySelectCategory,
                       selectedValue: selectedCategory.isNotEmpty ? selectedCategory : null,
                       onChanged: (value) {
                         if (value != null) {
@@ -99,7 +100,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                     // Item Dropdown (Updates based on category)
                     MyDropdownField(
                       items: items,
-                      label: 'Select Item',
+                      label: AppLocalizations.of(context)!.addEntrySelectItem,
                       selectedValue: selectedItem.isNotEmpty ? selectedItem : null,
                       onChanged: (value) {
                         if (value != null) {
@@ -109,7 +110,10 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    const Text('Select Date', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(
+                        AppLocalizations.of(context)!.addEntrySelectDate,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+                    ),
                     const SizedBox(height: 8),
                     DatePickerField(controller: dateController,
                       validator: (value) {

@@ -13,11 +13,12 @@ class LanguageSelector extends StatelessWidget {
     final currentLangCode = Localizations.localeOf(context).languageCode;
 
     // Localized label for dropdown title
-    final label = AppLocalizations.of(context)!.language;
+    final label = AppLocalizations.of(context)!.generalLanguage;
 
     // Mapping of internal code ↔ display label
     final langMap = {
       'English': 'en',
+      'Telugu': 'te',
       'Español': 'es',
     };
 

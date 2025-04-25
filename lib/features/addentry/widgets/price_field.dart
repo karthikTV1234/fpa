@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class PriceField extends StatelessWidget {
   final TextEditingController controller;
@@ -11,8 +13,8 @@ class PriceField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Price (per kg)',
+        Text(
+          AppLocalizations.of(context)!.addEntryPricePerKg,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),

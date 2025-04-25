@@ -1,1 +1,12 @@
-{}
+{
+  "es": [
+    "generalLanguage",
+    "generalSubmit",
+    "addEntryTitle",
+    "addEntrySelectCategory",
+    "addEntrySelectItem",
+    "addEntrySelectDate",
+    "addEntryLocation",
+    "addEntryPricePerKg"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "@@locale": "te",
+
+  "generalLanguage": "భాష",
+  "generalSubmit": "సమర్పించండి",
+
+
+  "addEntryTitle": "ప్రవేశాన్ని జోడించండి",
+  "addEntrySelectCategory": "వర్గాన్ని ఎంచుకోండి",
+  "addEntrySelectItem": "అంశాన్ని ఎంచుకోండి",
+  "addEntrySelectDate": "తేదీని ఎంచుకోండి",
+  "addEntryLocation": "ప్రదేశం",
+  "addEntryPricePerKg": "ధర (కేజీకి)"
+}

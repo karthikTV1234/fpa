@@ -41,8 +41,9 @@ class App extends StatelessWidget {
 
                 locale: locale, // Dynamically set locale from LocaleCubit
                 supportedLocales: [
-                  Locale('en', 'US'), // English
-                  Locale('es', 'ES'), // Spanish
+                  Locale('en'), // English
+                  Locale('te'),
+                  Locale('es'), // Spanish
                 ],
 
                 localizationsDelegates: [
