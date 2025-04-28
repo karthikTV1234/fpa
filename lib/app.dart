@@ -42,7 +42,7 @@ class App extends StatelessWidget {
                 locale: locale, // Dynamically set locale from LocaleCubit
                 supportedLocales: [
                   Locale('en'), // English
-                  Locale('te'),
+                  Locale('te'), //Telugu
                   Locale('es'), // Spanish
                 ],
 

@@ -10,6 +10,8 @@ import 'package:fpa/features/addentry/widgets/location_field.dart';
 import 'package:fpa/features/addentry/widgets/price_field.dart';
 import 'package:fpa/features/addentry/widgets/submit_button.dart';
 import 'package:fpa/widgets/my_dropdown_widget.dart';
+import '../../../core/constants/messages/app_messages.dart';
+import '../../../core/constants/messages/validation_messages.dart';
 import '../../../widgets/date_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -55,7 +57,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
           listener: (context, state) {
             if (state is AddEntrySuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Entry added successfully!')),
+                const SnackBar(content: Text(AppMessages.entryAdded)),
               );
               Navigator.pop(context, true); // Go back after success
             } else if (state is AddEntryFailure) {
@@ -118,7 +120,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                     DatePickerField(controller: dateController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Date is required';
+                          return ValidationMessages.invalidDate;
                         }
                         return null;
                       },
@@ -129,7 +131,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                       controller: locationController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Location is required';
+                          return ValidationMessages.invalidLocation;
                         }
                         return null;
                       },
@@ -139,7 +141,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                       controller: priceController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Price is required';
+                          return ValidationMessages.invalidPrice;
                         }
                         return null;
                       },
