@@ -52,6 +52,8 @@ dependencies:
   flutter_localizations:
      sdk: flutter
 
+  connectivity_plus: ^5.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

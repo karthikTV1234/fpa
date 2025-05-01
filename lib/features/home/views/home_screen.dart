@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fpa/features/home/views/rain_card_widget.dart';
+import '../../../core/network/network_service.dart';
 import '../../../data/models/rain_status_model.dart';
 import '../../../data/service/weather_service.dart';
 
 class HomeScreen extends StatelessWidget {
   final _weatherService = WeatherService();
+  final _networkService = NetworkService();
 
   HomeScreen({super.key});
 
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
       body: FutureBuilder<RainStatusModel>(
-        future: _weatherService.getRainStatus('Hyderabad'),
+        future: _checkInternetAndFetchData(context),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -27,5 +29,16 @@ class HomeScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  // Method to check for internet and fetch weather data
+  Future<RainStatusModel> _checkInternetAndFetchData(BuildContext context) async {
+    bool isConnected = await _networkService.hasNetworkConnection();
+    if (!isConnected) {
+      // If no internet, throw an error
+      throw Exception('No internet connection. Please try again later.');
+    }
+    // If there is internet, fetch the weather data
+    return await _weatherService.getRainStatus('Hyderabad');
   }
 }

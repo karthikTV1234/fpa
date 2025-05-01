@@ -33,6 +33,25 @@ class EntryRepository {
     }
   }
 
+  // Get Entries with Pagination
+  Future<List<Entry>> getEntriesPaged({required int offset, required int limit}) async {
+    print('EntryRepository: Fetching entries from local DB...');
+    try {
+      final db = await dbHelper.database;
+      final result = await db.query(
+        DatabaseHelper.tableEntries,
+        orderBy: 'id DESC',
+        limit: limit,
+        offset: offset,
+      );
+      return result.map((e) => Entry.fromMap(e)).toList();
+    } catch (e) {
+      print('Error fetching paged entries: $e');
+      return [];
+    }
+  }
+
+
   // Get Entry by ID (Read)
   Future<Entry?> getEntryById(int id) async {
     try {
