@@ -1,7 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpa/core/pagination/pagination_event.dart';
 import 'package:fpa/core/pagination/pagination_state.dart';
+import '../constants/ApiConstants.dart';
 
+//FetchPage<T> is the type of any function that takes (int offset, int limit)
+// and returns Future<List<T>>
 typedef FetchPage<T> = Future<List<T>> Function(int offset, int limit);
 
 class PaginationBloc<T> extends Bloc<PaginationEvent<T>, PaginationState<T>> {
@@ -13,7 +16,7 @@ class PaginationBloc<T> extends Bloc<PaginationEvent<T>, PaginationState<T>> {
   bool _hasMore = true;
   List<T> _allItems = [];
 
-  PaginationBloc({required this.fetchPage, this.pageSize = 20}) : super(PaginationInitial<T>()) {
+  PaginationBloc({required this.fetchPage, this.pageSize = ApiConstants.pageSize}) : super(PaginationInitial<T>()) {
     on<LoadInitial<T>>(_onLoadInitial);
     on<LoadMore<T>>(_onLoadMore);
   }

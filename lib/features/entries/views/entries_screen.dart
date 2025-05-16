@@ -1,34 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpa/features/entries/widgets/list_item_widget.dart';
 import 'package:fpa/navigation/routes/app_routes.dart';
 import '../../../core/constants/app_icons.dart';
 import 'package:fpa/data/models/entry_model.dart';
 import '../../../core/pagination/pagination_bloc.dart';
 import '../../../core/pagination/pagination_event.dart';
-import '../../../core/pagination/pagination_state.dart';
+import '../../../data/repositories/entry_repository.dart'; // Your API call logic
+import '../widgets/paginated_listview.dart';
 
-class EntriesScreen extends StatefulWidget {
+/// This is the screen-level wrapper that provides its own PaginationBloc
+class EntriesScreen extends StatelessWidget {
   const EntriesScreen({Key? key}) : super(key: key);
 
   @override
-  _EntriesScreenState createState() => _EntriesScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      // Creates a fresh PaginationBloc<Entry> only for this screen
+      create: (_) => PaginationBloc<Entry>(
+        fetchPage: (offset, limit) =>
+            EntryRepository().getEntriesPaged(offset: offset, limit: limit),
+      )..add(LoadInitial<Entry>()),
+
+      // Child widget that uses this bloc instance
+      child: const EntriesScreenBody(),
+    );
+
+
+    //fetchPage: (offset, limit) => EntryRepository().getEntriesPaged(offset: offset, limit: limit),
+    //same as
+    //fetchPage: (offset, limit) {
+    //   return EntryRepository().getEntriesPaged(offset: offset, limit: limit);
+    // },
+    //offset, limit values are giving by fetchPage to getEntriesPaged method.
+
+    //..add(LoadInitial<Entry>() Meaning
+    //after creating the PaginationBloc, immediately call add(LoadInitial<Entry>()) on it.
+    //This sends the LoadInitial event to the bloc, telling it to start loading the first page right away.
+
+  }
 }
 
-class _EntriesScreenState extends State<EntriesScreen> {
+/// The inner body of the screen that uses the Bloc
+class EntriesScreenBody extends StatefulWidget {
+  const EntriesScreenBody({Key? key}) : super(key: key);
+
+  @override
+  _EntriesScreenBodyState createState() => _EntriesScreenBodyState();
+}
+
+class _EntriesScreenBodyState extends State<EntriesScreenBody> {
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    print("EntriesScreen initState triggered");
 
-    // Load initial entries when the screen is opened
-    context.read<PaginationBloc<Entry>>().add(LoadInitial<Entry>());
-
-    // Detect scroll to trigger loading more data
+    // Add scroll listener to detect when user reaches end of list
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        // Trigger loading more data
         context.read<PaginationBloc<Entry>>().add(LoadMore<Entry>());
       }
     });
@@ -36,54 +67,19 @@ class _EntriesScreenState extends State<EntriesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("EntriesScreen build() called | hashCode: $hashCode");
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Entries'),
-      ),
-      body: BlocBuilder<PaginationBloc<Entry>, PaginationState<Entry>>(
-        builder: (context, state) {
-          final List<Entry> items;
-          bool hasMore = true;
-          if (state is PaginationLoading<Entry>) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is PaginationLoaded<Entry>) {
-            items = state.items;
-            hasMore = state.hasMore;
-          } else if (state is PaginationLoadingMore<Entry>) {
-            items = state.items;
-          } else if (state is PaginationError<Entry>) {
-            return Center(child: Text(state.message));
-          } else {
-            return const Center(child: Text("Something went wrong."));
-          }
+      appBar: AppBar(title: const Text('Entries')),
 
-          if (items.isEmpty) {
-            return const Center(child: Text("No entries available."));
-          }
+      // Paginated list view that listens to PaginationBloc state
+      body: PaginatedListView(scrollController: _scrollController),
 
-          return ListView.builder(
-            controller: _scrollController,
-            itemCount: items.length + (hasMore ? 1 : 0), // Add extra item for loader
-            itemBuilder: (context, index) {
-              if (index < items.length) {
-                return EntryListItem(entry: items[index]);
-              } else {
-                return const Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Center(child: CircularProgressIndicator()),
-                );
-              }
-            },
-          );
-        },
-      ),
-        floatingActionButton: FloatingActionButton(
+      // FAB to navigate to add entry screen
+      floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final result = await Navigator.pushNamed(context, AppRoutes.addEntry);
+
           if (result == true) {
-            // Reset and reload the entries
+            // After adding entry, reload the paginated list from scratch
             context.read<PaginationBloc<Entry>>().add(LoadInitial<Entry>());
           }
         },

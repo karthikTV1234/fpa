@@ -25,12 +25,6 @@ class App extends StatelessWidget {
         BlocProvider<LocaleCubit>(
           create: (_) => LocaleCubit(), // Default locale is 'en'
         ),
-        BlocProvider(
-          create: (_) => PaginationBloc<Entry>(
-            fetchPage: (offset, limit) => EntryRepository().getEntriesPaged(offset: offset, limit: limit),
-          )..add(LoadInitial<Entry>()),
-        )
-
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {

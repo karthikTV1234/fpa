@@ -5,4 +5,7 @@ class ApiConstants {
 
   // Endpoints
   static const String forecast = 'forecast';
+
+
+  static const int pageSize = 15;
 }
