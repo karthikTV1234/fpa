@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../constants/ApiConstants.dart';
+import '../constants/api_constants.dart';
 import 'interceptor/token_interceptor.dart';
 import 'interceptor/token_manager.dart';
 

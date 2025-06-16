@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../core/constants/ApiConstants.dart';
+import '../../core/constants/api_constants.dart';
 import '../../core/network/api_client.dart';
 import '../models/rain_status_model.dart';
 

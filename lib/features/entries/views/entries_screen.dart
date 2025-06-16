@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpa/navigation/routes/app_routes.dart';
-import '../../../core/constants/app_icons.dart';
+import '../../../common/pagination/pagination_bloc.dart';
+import '../../../common/pagination/pagination_event.dart';
+import '../../../core/constants/assets/system_icons.dart';
 import 'package:fpa/data/models/entry_model.dart';
-import '../../../core/pagination/pagination_bloc.dart';
-import '../../../core/pagination/pagination_event.dart';
 import '../../../data/repositories/entry_repository.dart'; // Your API call logic
 import '../widgets/paginated_listview.dart';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../common/widgets/my_dropdown_widget.dart';
 import '../../../core/constants/locale_cubit.dart';
-import '../../../widgets/my_dropdown_widget.dart';
 
 class LanguageSelector extends StatelessWidget {
   const LanguageSelector({super.key});

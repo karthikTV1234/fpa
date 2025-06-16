@@ -9,10 +9,10 @@ import 'package:fpa/features/addentry/viewmodel/add_entry_state.dart';
 import 'package:fpa/features/addentry/widgets/location_field.dart';
 import 'package:fpa/features/addentry/widgets/price_field.dart';
 import 'package:fpa/features/addentry/widgets/submit_button.dart';
-import 'package:fpa/widgets/my_dropdown_widget.dart';
-import '../../../core/constants/messages/app_messages.dart';
-import '../../../core/constants/messages/validation_messages.dart';
-import '../../../widgets/date_picker_widget.dart';
+import '../../../common/widgets/date_picker_widget.dart';
+import '../../../common/widgets/my_dropdown_widget.dart';
+import '../../../core/constants/strings/app_strings.dart';
+import '../../../core/constants/strings/validation_messages.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddEntryScreen extends StatefulWidget {
@@ -57,7 +57,7 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
           listener: (context, state) {
             if (state is AddEntrySuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text(AppMessages.entryAdded)),
+                const SnackBar(content: Text(AppStrings.entryAdded)),
               );
               Navigator.pop(context, true); // Go back after success
             } else if (state is AddEntryFailure) {

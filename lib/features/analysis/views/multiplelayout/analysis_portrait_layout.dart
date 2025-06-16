@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../common/widgets/my_dropdown_widget.dart';
 import '../../../../data/category_item_data.dart';
-import '../../../../widgets/my_dropdown_widget.dart';
 import '../analysis_list_widget.dart';
 
 class AnalysisPortraitLayout extends StatelessWidget {

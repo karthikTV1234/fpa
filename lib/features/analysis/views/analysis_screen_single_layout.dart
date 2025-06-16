@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fpa/data/category_item_data.dart';
-import 'package:fpa/widgets/my_dropdown_widget.dart';
 import 'package:fpa/features/analysis/views/analysis_list_widget.dart';
+
+import '../../../common/widgets/my_dropdown_widget.dart';
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});

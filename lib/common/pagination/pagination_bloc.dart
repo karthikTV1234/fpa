@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fpa/core/pagination/pagination_event.dart';
-import 'package:fpa/core/pagination/pagination_state.dart';
-import '../constants/ApiConstants.dart';
+import 'package:fpa/common/pagination/pagination_event.dart';
+import 'package:fpa/common/pagination/pagination_state.dart';
+import '../../core/constants/api_constants.dart';
 
 //FetchPage<T> is the type of any function that takes (int offset, int limit)
 // and returns Future<List<T>>
