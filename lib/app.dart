@@ -7,7 +7,7 @@ import 'package:fpa/navigation/bottom_navigation.dart';
 import 'core/constants/theme/app_themes.dart';
 import 'core/constants/theme/theme_cubit.dart';
 import 'core/constants/locale_cubit.dart';
-import 'data/models/entry_model.dart';
+import 'features/entries/data/models/entry_model.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

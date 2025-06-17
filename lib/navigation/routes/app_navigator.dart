@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fpa/features/addentry/views/add_entry_screen.dart';
-import 'package:fpa/navigation/routes/app_routes.dart';
+import 'package:fpa/features/entries/presentation/screens/add_entry_screen.dart';
+
+import '../../app_routing/app_routes.dart';
 
 class AppNavigator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
