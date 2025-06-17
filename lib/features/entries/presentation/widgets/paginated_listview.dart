@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpa/features/entries/data/models/entry_model.dart';
-import '../../../../common/pagination/pagination_bloc.dart';
-import '../../../../common/pagination/pagination_state.dart';
+import '../../../../common/bloc/pagination/pagination_bloc.dart';
+import '../../../../common/bloc/pagination/pagination_state.dart';
 import 'list_item_widget.dart';
 
 class PaginatedListView extends StatelessWidget {

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../app_routing/app_routes.dart';
-import '../../../../common/pagination/pagination_bloc.dart';
-import '../../../../common/pagination/pagination_event.dart';
+import '../../../../common/bloc/pagination/pagination_bloc.dart';
+import '../../../../common/bloc/pagination/pagination_event.dart';
 import '../../../../core/constants/assets/system_icons.dart';
 import 'package:fpa/features/entries/data/models/entry_model.dart';
+import '../../../../core/navigation/navigation_helper.dart';
 import '../../data/repository/entry_repository.dart'; // Your API call logic
 import '../widgets/paginated_listview.dart';
 
@@ -76,11 +77,12 @@ class _EntriesScreenBodyState extends State<EntriesScreenBody> {
       // FAB to navigate to add entry screen
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final result = await Navigator.pushNamed(context, AppRoutes.addEntry);
+          final bloc = context.read<PaginationBloc<Entry>>(); // capture before await
+          final result = await NavigationHelper.push(context, AppRoutes.addEntry);
 
           if (result == true) {
             // After adding entry, reload the paginated list from scratch
-            context.read<PaginationBloc<Entry>>().add(LoadInitial<Entry>());
+            bloc.add(LoadInitial<Entry>());
           }
         },
         child: const Icon(MyAppIcons.add),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:fpa/navigation/routes/app_navigator.dart';
+import 'package:fpa/core/navigation/app_navigator.dart';
 import 'package:fpa/navigation/bottom_navigation.dart';
 import 'core/constants/theme/app_themes.dart';
 import 'core/constants/theme/theme_cubit.dart';
@@ -30,8 +30,8 @@ class App extends StatelessWidget {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'fpa',
-                theme: AppTheme.lightTheme,
-                darkTheme: AppTheme.darkTheme,
+                theme: AppTheme.light,
+                darkTheme: AppTheme.dark,
                 themeMode: themeMode,
 
                 locale: locale, // Dynamically set locale from LocaleCubit
